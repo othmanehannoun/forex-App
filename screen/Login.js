@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView ,TextInput} from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import {firebase} from '../firebase/config'
-import FacebookSignin from './Facebook';
+import FacebookSignin from './RéseauSocial';
 
 const Login = ({navigation}) => {
 
@@ -46,14 +46,14 @@ const Login = ({navigation}) => {
                     style={styles.input}
                     onChangeText={setEmail}
                     value={email}
-                    placeholder="USERNAME"
+                    placeholder="ADDRESS MAIL"
 
                 />
                  <TextInput
                     style={styles.input}
                     onChangeText={setPassword}
                     value={password}
-                    placeholder="ADDRESS EMAIL"
+                    placeholder="PASSWORD"
 
                 />
                
