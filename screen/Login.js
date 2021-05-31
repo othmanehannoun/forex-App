@@ -90,7 +90,7 @@ const Login = ({navigation}) => {
                </View>
 
                <View style={{ marginTop: 48, flexDirection: "row", justifyContent: "center" }}>
-                        <FacebookSignin />
+                        <FacebookSignin navigation={navigation} />
                 </View>
            </View>
        </ScrollView>

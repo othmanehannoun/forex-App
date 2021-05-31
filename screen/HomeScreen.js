@@ -1,63 +1,115 @@
 import React from 'react'
-import { View, Text, Dimensions } from 'react-native'
-import {
-    LineChart
-  } from 'react-native-chart-kit'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { WebView } from 'react-native-webview'
+
+
 
 const HomeScreen = () => {
+    const [uri, setUri] = React.useState('');
     return (
-        
-        <View style={{
-           
-            marginTop:40
-        }}>
-            <Text style={{marginBottom:20, textAlign:"center", 
-                          fontWeight:'bold', fontSize: 20}}>
-                Bezier Line Chart
-            </Text>
-           <LineChart
-                data={{
-                    labels:["Jan","Feb" ,"Mar","Apr","Mar","Apr"],
-                    datasets: [
-                        {
-                            data: [
-                                Math.random()*100,
-                                Math.random()*100,
-                                Math.random()*100,
-                                Math.random()*100,
-                                Math.random()*100,
-                                Math.random()*100,
-                            ],
-                        },
-                    ],
-                }}
-                width={Dimensions.get('window').width}
-                height={400}
-                yAxisSuffix='k'
-                yAxisInterval={1}
-                chartConfig={{
-                    backgroundColor:"#FFF",
-                    backgroundGradientFrom:"#FFF",
-                    backgroundGradientTo:"#FFF",
-                    decimalPlaces:2,
-                    color:(opacity = 0) => `rgba(255,0,0, ${opacity})`,
-                    labelColor:(opacity = 0) => `rgba(0,0,0, ${opacity})`,
-                    style:{
-                        borderRadius:16
-                    },
-                    propsForDots:{
-                        r:'6',
-                        strokeWidth:"2",
-                        stroke:"red"
-                    },
-                }}
-                bezier
-                
-                
-           />
-        </View>
 
+        <>
+        <View style={styles.container}>
+    <TouchableOpacity
+            onPress={() =>
+              setUri("https://www.tradingview.com/chart/?symbol=FX%3AGBPUSD")
+            }
+            style={{
+              backgroundColor: "#FFB833",
+              alignItems: "center",
+              padding: 10,
+              borderRadius: 5,
+              margin: 20,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: "bold",
+                color: "white",
+              }}
+            >
+            GBPUSD
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => setUri("https://www.tradingview.com/chart/?symbol=FX%3AEURUSD")
+            }
+
+            style={{
+              backgroundColor: "#FFB833",
+              alignItems: "center",
+              padding: 10,
+              borderRadius: 5,
+              margin: 20,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: "bold",
+                color: "white",
+              }}
+            >
+              EURUSD
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => 
+            setUri(
+                "https://www.tradingview.com/chart/?symbol=USDJPY"
+            )
+            }
+            style={{
+              backgroundColor: "#FFB833",
+              alignItems: "center",
+              padding: 10,
+              borderRadius: 5,
+              margin: 20,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: "bold",
+                color: "white",
+              }}
+            >
+              USDJPY
+            </Text>
+          </TouchableOpacity>
+         
+          </View>
+
+
+        <WebView
+        source={{ uri: uri}}
+        onError={(syntheticEvent) => {
+          const { nativeEvent } = syntheticEvent;
+          console.warn('WebView error: ', nativeEvent);
+        }}
+        javaScriptEnabled
+          domStorageEnabled
+          allowFileAccessFromFileURLs
+          startInLoadingState
+          originWhitelist={['*']}
+          mixedContentMode="compatibility"
+      />
+
+</>
     )
 }
 
 export default HomeScreen
+
+
+const styles=StyleSheet.create({
+    container:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginRight: 15,
+        marginTop: 8,
+        marginBottom: 18,
+      },
+})

@@ -33,9 +33,19 @@ import * as Google from 'expo-google-app-auth';
 //   }
 
 
-function FacebookSignin({navigation}) {
+class FacebookSignin extends React.Component {
+constructor(props) {
+  super(props)
 
-  async function signInGoogle() {
+  this.state = {
+     
+  }
+
+}
+
+
+  signInGoogle = async()=> {
+
     try {
       const result = await Google.logInAsync({
         androidClientId: '952531014174-rn5fll5i9ni84doh83o8gbar07tghe1m.apps.googleusercontent.com',
@@ -43,32 +53,35 @@ function FacebookSignin({navigation}) {
       });
   
       if (result.type === 'success') {
-        navigation.navigate('Signin');
-        return result.accessToken;
+        this.props.navigation.navigate('Home')
+       
         
       } else {
+        console.log('kaynchi plan');
         return { cancelled: true };
       }
     } catch (e) {
       return { error: true };
     }
   }
+   render(){
     return (
-        <>
-        <TouchableOpacity style={styles.socialButton} 
-        onPress={() => logInFb()}>
-                     
-            <Image source={require("../assets/facebook.png")} style={styles.socialLogo} />
-            <Text style={styles.text}>Facebook</Text>
-        </TouchableOpacity>
+      <>
+      <TouchableOpacity style={styles.socialButton} 
+         onPress={() => logInFb()}>
+                       
+          <Image source={require("../assets/facebook.png")} style={styles.socialLogo} />
+          <Text style={styles.text}>Facebook</Text>
+      </TouchableOpacity>
 
-        <TouchableOpacity style={styles.socialButton}
-         onPress={() => signInGoogle()}>
-           <Image source={require("../assets/google.png")} style={styles.socialLogo} />
-           <Text style={styles.text}>Google</Text>
-        </TouchableOpacity>
-    </>
-    )
+      <TouchableOpacity style={styles.socialButton}
+       onPress={() => this.signInGoogle()}>
+         <Image source={require("../assets/google.png")} style={styles.socialLogo} />
+         <Text style={styles.text}>Google</Text>
+      </TouchableOpacity>
+  </>
+  )
+   }
 }
 
 
@@ -86,7 +99,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 10 },
         shadowOpacity: 1,
         shadowRadius: 20,
-       
     }
 });
 export default FacebookSignin
